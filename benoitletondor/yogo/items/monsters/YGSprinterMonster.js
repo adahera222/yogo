@@ -36,6 +36,16 @@ goog.inherits(YGSprinterMonster, YGMonster);
  * @inheritDoc
  * @override
  */
+YGSprinterMonster.prototype.onDestroy = function()
+{
+	// Destroy scheduled task
+	lime.scheduleManager.unschedule(this.speedUp, this);
+};
+
+/**
+ * @inheritDoc
+ * @override
+ */
 YGSprinterMonster.prototype.getSpeed = function()
 {
 	return 10 * this._speedFactor;

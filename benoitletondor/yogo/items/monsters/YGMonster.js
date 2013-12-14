@@ -30,6 +30,14 @@ YGMonster.prototype.getSpeed = function()
 	return null;
 };
 
+/**
+ * Called before destruction of this monster to clean up variables
+ */
+YGMonster.prototype.onDestroy = function()
+{
+	
+};
+
 //----------------------------------------->
 
 /**

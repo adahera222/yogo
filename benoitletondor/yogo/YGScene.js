@@ -159,12 +159,17 @@ YGScene.prototype.removeChild = function( child )
 		this.unsubscribeObjectToPhysic(child);
 	};
 	
-	// Remove monster from array is it's one
+	// Special behavior for monster
 	if( child instanceof YGMonster )
 	{
+		// Call on destroy
+		child.onDestroy();
+		
+		// Remove from array
 		var index = this._monsters.indexOf(child);
 		if (index > -1) 
 		{
+			
 			this._monsters.splice(index, 1);
 		}
 	}
