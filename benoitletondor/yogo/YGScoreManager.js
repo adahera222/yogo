@@ -67,6 +67,12 @@ YGScoreManager.prototype.computeScoreForKilledMonsters = function(monsters)
 YGScoreManager.prototype.updateTime = function()
 {
 	this._time += 100;
+	
+	// Update multiplier every 10s
+	if( this._time % 10000 == 0 )
+	{
+		this._currentMultiplier++;
+	}
 };
 
 // ------------------------------------------->

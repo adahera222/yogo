@@ -18,11 +18,6 @@ YGHero = function(scene, director)
 {
 	goog.base(this);
 	
-	/*
-	 * Set singleton instance
-	 */
-	YGHero.Instance = this;
-	
 	this.setSize(50, 50);
 	this.setFill("#FF0000");
 	
@@ -86,13 +81,6 @@ goog.inherits(YGHero, lime.Sprite);
  * @private
  */
 YGHero._force = 250;
-
-/**
- * Singleton accessor
- * @type {YGHero}
- * @expose
- */
-YGHero.Instance = null;
 
 //----------------------------------------->
 

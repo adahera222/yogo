@@ -293,7 +293,7 @@ YGScene.prototype.manageMonsters = function()
 	{
 		var monster = this._monsters[i];
 		
-		var newForce = YGMath.getVectorBetweenPosition(monster.getPosition(), YGHero.Instance.getPosition(), monster.getSpeed());
+		var newForce = YGMath.getVectorBetweenPosition(monster.getPosition(), this._hero.getPosition(), monster.getSpeed());
 		monster.getBody().SetLinearVelocity(newForce);
 	}
 	
