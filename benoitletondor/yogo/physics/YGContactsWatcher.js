@@ -4,6 +4,7 @@ goog.require('YGContactsResult');
 goog.require('YGBullet');
 goog.require('YGBorder');
 goog.require('YGMonster');
+goog.require('YGHero');
 
 /**
  * Iterate over contacts to resolve them
@@ -41,6 +42,8 @@ YGContactsWatcher.onContacts = function(contactIterator)
     		}
     		else if( object2 instanceof YGMonster )
     		{
+    			results.addDestroyedMonster(object2);
+    			
     			results.addObjectToRemove(object2);
     			results.addObjectToRemove(object1);
     		}
@@ -54,9 +57,23 @@ YGContactsWatcher.onContacts = function(contactIterator)
     		}
     		else if( object1 instanceof YGMonster )
     		{
+    			results.addDestroyedMonster(object1);
+    			
     			results.addObjectToRemove(object2);
     			results.addObjectToRemove(object1);
     		}
+    	}
+    	
+    	/*
+    	 * Hero
+    	 */
+    	if( (object1 instanceof YGHero) && (object2 instanceof YGMonster) )
+    	{
+    		results.setHeroKilled(true);
+    	}
+    	else if( (object1 instanceof YGMonster) && (object2 instanceof YGHero) )
+    	{
+    		results.setHeroKilled(true);
     	}
     }
     

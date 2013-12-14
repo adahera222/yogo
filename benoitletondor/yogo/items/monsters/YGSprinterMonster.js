@@ -3,7 +3,7 @@ goog.provide('YGSprinterMonster');
 goog.require('YGMonster');
 
 /**
- * A monster that get quicker with time
+ * A monster that gets quicker with time
  * 
  * @constructor
  * @extends {YGMonster}
@@ -40,6 +40,15 @@ YGSprinterMonster.prototype.onDestroy = function()
 {
 	// Destroy scheduled task
 	lime.scheduleManager.unschedule(this.speedUp, this);
+};
+
+/**
+ * @inheritDoc
+ * @override
+ */
+YGSprinterMonster.prototype.getBaseScore = function()
+{
+	return 15;
 };
 
 /**

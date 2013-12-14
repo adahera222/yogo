@@ -3,7 +3,7 @@ goog.provide('YGZombieMonster');
 goog.require('YGMonster');
 
 /**
- * A slow monster
+ * A slow & stupid monster
  * 
  * @constructor
  * @extends {YGMonster}
@@ -19,6 +19,15 @@ YGZombieMonster = function()
 goog.inherits(YGZombieMonster, YGMonster);
 
 // ------------------------------------->
+
+/**
+ * @inheritDoc
+ * @override
+ */
+YGZombieMonster.prototype.getBaseScore = function()
+{
+	return 10;
+};
 
 /**
  * @inheritDoc

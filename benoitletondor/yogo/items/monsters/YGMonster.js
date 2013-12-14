@@ -31,7 +31,19 @@ YGMonster.prototype.getSpeed = function()
 };
 
 /**
+ * Return the score for the player when the monster is killed
+ * Should be overrided by child
+ * 
+ * @returns {number}
+ */
+YGMonster.prototype.getBaseScore = function()
+{
+	return null;
+};
+
+/**
  * Called before destruction of this monster to clean up variables
+ * Can be overrided by child
  */
 YGMonster.prototype.onDestroy = function()
 {

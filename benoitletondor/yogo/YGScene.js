@@ -13,6 +13,7 @@ goog.require('YGImplements');
 goog.require('YGMonsterFactory');
 goog.require('YGMonster');
 goog.require('YGMath');
+goog.require('YGScoreManager');
 
 YGScene = function(director)
 {
@@ -59,6 +60,13 @@ YGScene = function(director)
 	 * @private
 	 */
 	this._monsters = new Array();
+	
+	/**
+	 * Score manager
+	 * @type {YGScoreManager}
+	 * @private
+	 */
+	this._scoreManager = new YGScoreManager();
 	
 	/*
 	 * Add borders
@@ -116,6 +124,19 @@ YGScene.prototype.mainLoop = function( dt )
 	 * Get contacts results
 	 */
 	var contactResults = YGContactsWatcher.onContacts(this._world.GetContactList());
+	if( contactResults.isHeroKilled() )
+	{
+		//TODO
+	}
+	
+	/*
+	 * Manage score
+	 */
+	var newScore = this._scoreManager.computeScoreForKilledMonsters(contactResults.getDestroyedMonsters());
+	if( newScore )
+	{
+		//TODO
+	}
 	
 	/*
 	 * Remove all objects that needs to
