@@ -119,7 +119,12 @@ YGScene = function(director)
 	/*
 	 * Monster appear scheduling
 	 */
-	lime.scheduleManager.scheduleWithDelay(this.manageMonsters, this, 500);
+	lime.scheduleManager.scheduleWithDelay(this.addMonster, this, 500);
+	
+	/*
+	 * Monster management 
+	 */
+	lime.scheduleManager.scheduleWithDelay(this.manageMonsters, this, 100);
 	
 	/*
 	 * Bonus appear scheduling
@@ -155,12 +160,6 @@ YGScene.prototype.mainLoop = function( dt )
 		
 		// Apply forces to the object
 		physicObject.setPosition(physicObject.getBody().GetCenterPosition());
-		
-		// Apply rotation if it's not the hero (the hero handle his own rotation)
-		if( !(physicObject instanceof YGHero) )
-		{
-			physicObject.setRotation(YGMath.radianToDegree(physicObject.getBody().GetRotation()));
-		}
 	}
 	
 	/*
@@ -328,7 +327,7 @@ YGScene.prototype.addBonus = function()
 };
 
 /**
- * Manage current monsters & add a new monster
+ * Manage monsters
  */
 YGScene.prototype.manageMonsters = function()
 {
@@ -341,9 +340,15 @@ YGScene.prototype.manageMonsters = function()
 		
 		var newForce = YGMath.getVectorBetweenPosition(monster.getPosition(), this._hero.getPosition(), monster.getSpeed());
 		monster.getBody().SetLinearVelocity(newForce);
+		monster.setRotation(YGMath.getAngleForVector(newForce));
 	}
-	
-	
+};
+
+/**
+ * Add a new monster
+ */
+YGScene.prototype.addMonster = function()
+{
 	/*
 	 * Create a new monster
 	 */
