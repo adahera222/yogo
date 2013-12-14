@@ -3,12 +3,32 @@ goog.provide('YGMonster');
 goog.require('lime.Sprite');
 goog.require('box2d.BoxDef');
 
+/**
+ * An abstract monster
+ * 
+ * @constructor
+ * @extends {lime.Sprite}
+ * @implements {STPPhysicObject}
+ */
 YGMonster = function()
 {
 	goog.base(this);
 };
 
 goog.inherits(YGMonster, lime.Sprite);
+
+//----------------------------------------->
+
+/**
+ * Return the speed of the monster
+ * Should be overrided by child
+ * 
+ * @returns {number}
+ */
+YGMonster.prototype.getSpeed = function()
+{
+	return null;
+};
 
 //----------------------------------------->
 

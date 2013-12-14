@@ -10,7 +10,7 @@ goog.require('YGBorder');
 goog.require('YGPhysicObject');
 goog.require('YGContactsWatcher');
 goog.require('YGImplements');
-goog.require('YGZombieMonster');
+goog.require('YGMonsterFactory');
 goog.require('YGMonster');
 goog.require('YGMath');
 
@@ -243,8 +243,7 @@ YGScene.prototype.manageMonsters = function()
 	{
 		var monster = this._monsters[i];
 		
-		var newForce = YGMath.getVectorBetweenPosition(monster.getPosition(), YGHero.Instance.getPosition(), 10);
-		
+		var newForce = YGMath.getVectorBetweenPosition(monster.getPosition(), YGHero.Instance.getPosition(), monster.getSpeed());
 		monster.getBody().SetLinearVelocity(newForce);
 	}
 	
@@ -252,7 +251,7 @@ YGScene.prototype.manageMonsters = function()
 	/*
 	 * Create a new monster
 	 */
-	var monster = new YGZombieMonster();
+	var monster = YGMonsterFactory.createMonster();
 	
 	// Compute position
 	var x = 0;
@@ -270,6 +269,11 @@ YGScene.prototype.manageMonsters = function()
 			x+= this._director.getSize().width - 50; 
 		}
 	}
+	
+	x = Math.max(YGBorder.Size, x);
+	y = Math.max(YGBorder.Size, y);
+	x = Math.min(this._director.getSize().width-YGBorder.Size, x);
+	y = Math.min(this._director.getSize().height-YGBorder.Size, y);
 	
 	monster.setPosition(x, y);
 	
