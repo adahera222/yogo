@@ -51,6 +51,14 @@ YGScene = function(director)
 	this._world = new box2d.World(bounds, new box2d.Vec2(0, 0), false);
 	
 	/**
+	 * Should we add a boss as the next monster ?
+	 * @type {boolean}
+	 * @private
+	 */
+	
+	this._shouldAddBoss = false;
+	
+	/**
 	 * The hero !
 	 * @type {YGHero}
 	 * @private
@@ -314,6 +322,9 @@ YGScene.prototype.addBonus = function()
 	var position = YGMath.getInScenePosition(x, y, bonus, this._director, YGBorder.Size);
 	bonus.setPosition(position);
 	this.appendChild(bonus);
+	
+	// A boss pop for every bonus
+	this._shouldAddBoss = true;
 };
 
 /**
@@ -336,7 +347,16 @@ YGScene.prototype.manageMonsters = function()
 	/*
 	 * Create a new monster
 	 */
-	var monster = YGMonsterFactory.createMonster();
+	var monster = null;
+	if( this._shouldAddBoss )
+	{
+		monster = YGMonsterFactory.createBoss();
+		this._shouldAddBoss = false;
+	}
+	else
+	{
+		monster = YGMonsterFactory.createMonster();
+	}
 	
 	// Compute position
 	var x = 0;

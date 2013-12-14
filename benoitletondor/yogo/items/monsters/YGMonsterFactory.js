@@ -2,6 +2,7 @@ goog.provide('YGMonsterFactory');
 
 goog.require('YGZombieMonster');
 goog.require('YGSprinterMonster');
+goog.require('YGBossMonster');
 
 /**
  * Create and return a new monster with a random type
@@ -20,4 +21,14 @@ YGMonsterFactory.createMonster = function()
 	{
 		return new YGZombieMonster();  
 	}
+};
+
+/**
+ * Create and return a boss
+ * 
+ * @returns {YGBossMonster}
+ */
+YGMonsterFactory.createBoss = function()
+{
+	return new YGBossMonster();
 };
