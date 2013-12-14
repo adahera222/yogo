@@ -1,5 +1,9 @@
 goog.provide('YGBonusManager');
 
+goog.require('YGFireRateBonus');
+goog.require('YGSpeedBonus');
+goog.require('YGInvertedBonus');
+
 /**
  * Object that manage bonuses
  * 
@@ -41,6 +45,10 @@ YGBonusManager.prototype.onBonuses = function(bonuses)
 		else if( bonus instanceof YGSpeedBonus )
 		{
 			this.addSpeedBonus();
+		}
+		else if( bonus instanceof YGInvertedBonus )
+		{
+			this.addInvertedBonus();
 		}
 	}
 };
@@ -85,4 +93,25 @@ YGBonusManager.prototype.addSpeedBonus = function()
 YGBonusManager.prototype.removeSpeedBonus = function()
 {
 	this._hero.setSpeed(YGHero.defaultSpeed);
+};
+
+// --------------------------------------->
+
+/**
+ * Add the inverted bonus
+ */
+YGBonusManager.prototype.addInvertedBonus = function()
+{
+	lime.scheduleManager.unschedule(this.removeInvertedBonus, this);
+	lime.scheduleManager.scheduleWithDelay(this.removeInvertedBonus, this, 2000, 1);
+	
+	this._hero.setInverted(true);
+};
+
+/**
+ * Remove the inverted bonus
+ */
+YGBonusManager.prototype.removeInvertedBonus = function()
+{
+	this._hero.setInverted(false);
 };

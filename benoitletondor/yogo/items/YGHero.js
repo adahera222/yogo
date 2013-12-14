@@ -92,6 +92,13 @@ YGHero = function(scene, director)
     this._speed = YGHero.defaultSpeed;
     
     /**
+     * Is rotation inverted ?
+     * @type {boolean}
+     * @private
+     */
+    this._inverted = false;
+    
+    /**
      * Should we fire bullet ?
      * @type {boolean}
      * @private
@@ -168,6 +175,13 @@ YGHero.prototype.fire = function(dt)
 	{		
 		var bulletForce = YGMath.getVectorBetweenPosition(this.getPosition(), this._mousePosition, 500);
 		var angle = YGMath.getAngleForVector(bulletForce);
+		
+		// Check if we are in inverted mode
+		if( this._inverted )
+		{
+			angle = YGMath.inverseAngle(angle);
+			bulletForce = bulletForce.Negative();
+		}
 			   
 		var bullet = new YGBullet(bulletForce);
 		bullet.setPosition(this.getPosition());
@@ -207,7 +221,15 @@ YGHero.prototype.mouseListener = function()
 		self._mousePosition = e.position;
 		
 		// Set hero rotation
-		self.setRotation(YGMath.getAngleBetweenPosition(self.getPosition(), e.position));
+		var angle = YGMath.getAngleBetweenPosition(self.getPosition(), e.position);
+		
+		// Check if we are in inverted mode
+		if( self._inverted )
+		{
+			angle = YGMath.inverseAngle(angle);
+		}
+		
+		self.setRotation(angle);
 	});
 };
 
@@ -328,6 +350,26 @@ YGHero.prototype.setFireRate = function(firerate)
 	
 	lime.scheduleManager.unschedule(this.fire, this);
 	lime.scheduleManager.scheduleWithDelay(this.fire, this, this.getFireRate());
+};
+
+/**
+ * Set the inverted mode for the hero
+ * 
+ * @param {boolean} inverted
+ */
+YGHero.prototype.setInverted = function(inverted)
+{
+	this._inverted = inverted;
+};
+
+/**
+ * Is the hero in inverted mode ?
+ * 
+ * @returns {Boolean}
+ */
+YGHero.prototype.isInverted = function()
+{
+	return this._inverted;
 };
 
 //------------------------------------------>

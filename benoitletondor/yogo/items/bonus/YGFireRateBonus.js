@@ -11,9 +11,6 @@ goog.require('YGBonus');
 YGFireRateBonus = function()
 {
 	goog.base(this);
-	
-	this.setSize(20, 20);
-	this.setFill("#FFFF00");
 };
 
 goog.inherits(YGFireRateBonus, YGBonus);

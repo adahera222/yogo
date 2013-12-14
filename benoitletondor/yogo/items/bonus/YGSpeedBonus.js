@@ -11,9 +11,6 @@ goog.require('YGBonus');
 YGSpeedBonus = function()
 {
 	goog.base(this);
-	
-	this.setSize(20, 20);
-	this.setFill("#FF8800");
 };
 
 goog.inherits(YGSpeedBonus, YGBonus);

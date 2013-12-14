@@ -14,6 +14,9 @@ YGBonus = function()
 {
 	goog.base(this);
 	
+	this.setSize(20, 20);
+	this.setFill("#FFFF00");
+	
 	/**
      * The physic body of the object
      * @type {box2d.Body}

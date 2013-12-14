@@ -110,7 +110,7 @@ YGMath.radianToDegree = function(radian)
 };
 
 /**
- * Convert a radian angle to degree
+ * Convert a degree angle to radian
  * 
  * @param {number} degree
  * @returns {number}
@@ -118,4 +118,20 @@ YGMath.radianToDegree = function(radian)
 YGMath.degreeToRadian = function(degree)
 {
 	return degree * Math.PI / 180;
+};
+
+/**
+ * Inverse the angle
+ * 
+ * @param {number} degree angle in degrees
+ * @returns {number}
+ */
+YGMath.inverseAngle = function(degree)
+{
+	if( degree >= 180 )
+	{
+		return degree - 180;
+	}
+	
+	return degree + 180;
 };

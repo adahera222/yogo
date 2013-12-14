@@ -17,10 +17,8 @@ YGMonsterFactory.createMonster = function()
 	{
 		return new YGSprinterMonster(); 
 	}
-	else
-	{
-		return new YGZombieMonster();  
-	}
+
+	return new YGZombieMonster(); 
 };
 
 /**
