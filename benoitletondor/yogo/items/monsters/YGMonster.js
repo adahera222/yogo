@@ -1,0 +1,53 @@
+goog.provide('YGMonster');
+
+goog.require('lime.Sprite');
+goog.require('box2d.BoxDef');
+
+YGMonster = function()
+{
+	goog.base(this);
+};
+
+goog.inherits(YGMonster, lime.Sprite);
+
+//----------------------------------------->
+
+/**
+ * Get the body of the object
+ * @returns {box2d.Body} 
+ */
+YGMonster.prototype.getBody = function( )
+{
+	return this._body;
+};
+
+/**
+ * Set the body of the object & apply linear velocity
+ * 
+ * @param {box2d.Body} body
+ */
+YGMonster.prototype.setBody = function( body )
+{
+	if( body )
+	{
+		this._body = body;
+	}
+};
+
+/**
+ * Get the shape definition of this object
+ * @returns {box2d.BoxDef}
+ */
+YGMonster.prototype.getShape = function()
+{
+	var shapeDef = new box2d.BoxDef();
+	
+   	shapeDef.restitution = 0;
+   	shapeDef.density = 1;
+   	shapeDef.friction = 0;
+   	shapeDef.extents.Set(this.getSize().width / 2, this.getSize().height / 2);
+   	shapeDef.categoryBits = 0x0008;
+   	shapeDef.maskBits = ~0x0008;
+   	
+   	return shapeDef;
+};

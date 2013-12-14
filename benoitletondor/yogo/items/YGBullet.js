@@ -1,6 +1,7 @@
 goog.provide('YGBullet');
 
 goog.require('lime.Sprite');
+goog.require('box2d.BoxDef');
 
 /**
  * A bullet fired by the hero
@@ -72,7 +73,7 @@ YGBullet.prototype.getShape = function()
    	shapeDef.friction = 0;
    	shapeDef.extents.Set(this.getSize().width / 2, this.getSize().height / 2);
    	shapeDef.categoryBits = 0x0004;
-   	shapeDef.maskBits = 0x0001;
+   	shapeDef.maskBits = 0x0001 | 0x0008; // static + monsters
    	
    	return shapeDef;
 };

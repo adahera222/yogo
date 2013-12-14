@@ -3,6 +3,7 @@ goog.provide('YGContactsWatcher');
 goog.require('YGContactsResult');
 goog.require('YGBullet');
 goog.require('YGBorder');
+goog.require('YGMonster');
 
 /**
  * Iterate over contacts to resolve them
@@ -29,14 +30,33 @@ YGContactsWatcher.onContacts = function(contactIterator)
     	var object1 = contact.GetShape1().GetBody().GetUserData();
     	var object2 = contact.GetShape2().GetBody().GetUserData();
     	
-    	if( (object2 instanceof YGBorder) && (object1 instanceof YGBullet) )
+    	/*
+    	 * Bullets
+    	 */
+    	if( object1 instanceof YGBullet )
     	{
-    		results.addObjectToRemove(object1);
+    		if( object2 instanceof YGBorder )
+    		{
+    			results.addObjectToRemove(object1);
+    		}
+    		else if( object2 instanceof YGMonster )
+    		{
+    			results.addObjectToRemove(object2);
+    			results.addObjectToRemove(object1);
+    		}
     	}
     	
-    	if( (object1 instanceof YGBorder) && (object2 instanceof YGBullet) )
+    	if( object2 instanceof YGBullet )
     	{
-    		results.addObjectToRemove(object2);
+    		if( object1 instanceof YGBorder )
+    		{
+    			results.addObjectToRemove(object2);
+    		}
+    		else if( object1 instanceof YGMonster )
+    		{
+    			results.addObjectToRemove(object2);
+    			results.addObjectToRemove(object1);
+    		}
     	}
     }
     

@@ -18,6 +18,11 @@ YGHero = function(scene, director)
 {
 	goog.base(this);
 	
+	/*
+	 * Set singleton instance
+	 */
+	YGHero.Instance = this;
+	
 	this.setSize(50, 50);
 	this.setFill("#FF0000");
 	
@@ -82,6 +87,13 @@ goog.inherits(YGHero, lime.Sprite);
  */
 YGHero._force = 250;
 
+/**
+ * Singleton accessor
+ * @type {YGHero}
+ * @expose
+ */
+YGHero.Instance = null;
+
 //----------------------------------------->
 
 /**
@@ -101,6 +113,7 @@ YGHero.prototype.fire = function()
 		var bulletForce = new box2d.Vec2();
 		bulletForce.x = this._mousePosition.x - this.getPosition().x;
 		bulletForce.y = this._mousePosition.y - this.getPosition().y;
+		
 		
 		// http://stackoverflow.com/a/3309658/2508174
 		var angle = Math.atan2(-bulletForce.y, bulletForce.x);

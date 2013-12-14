@@ -4,12 +4,13 @@ goog.require('lime.Scene');
 goog.require('box2d.World');
 goog.require('box2d.Vec2');
 goog.require('box2d.BodyDef');
+goog.require('goog.events.EventType');
 goog.require('YGHero');
 goog.require('YGBorder');
 goog.require('YGPhysicObject');
 goog.require('YGContactsWatcher');
 goog.require('YGImplements');
-goog.require('goog.events.EventType');
+goog.require('YGZombieMonster');
 
 YGScene = function(director)
 {
@@ -50,13 +51,20 @@ YGScene = function(director)
 	 */
 	this._hero = this.createHero();
 	
-	// Add borders
+	/*
+	 * Add borders
+	 */
 	this.addBorders();
 	
 	/*
 	 * Main loop binding
 	 */
 	lime.scheduleManager.schedule(this.mainLoop, this);
+	
+	/*
+	 * Monster appear scheduling
+	 */
+	lime.scheduleManager.scheduleWithDelay(this.addMonster, this, 500);
 };
 
 goog.inherits(YGScene, lime.Scene);
@@ -197,6 +205,16 @@ YGScene.prototype.unsubscribeObjectToPhysic = function( object )
 };
 
 // --------------------------------------------->
+
+/**
+ * Add a monster
+ */
+YGScene.prototype.addMonster = function()
+{
+	var monster = new YGZombieMonster();
+	monster.setPosition(30, 30);
+	this.appendChild(monster);
+};
 
 /**
  * Add borders to the scene
