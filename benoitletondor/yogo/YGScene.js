@@ -68,16 +68,24 @@ YGScene = function(director)
 	 * @private
 	 */
 	this._scoreManager = new YGScoreManager();
-	
+
 	/**
 	 * Label that display the current score
 	 * @type {lime.Label}
 	 * @private
 	 */
 	this._scoreLabel = new lime.Label().setFontFamily("Arial").setFontSize(20).setFontColor("#000000");
-	this._scoreLabel.setPosition(this._director.getSize().width - 50, 50);
+	this._scoreLabel.setPosition(this._director.getSize().width - 100, 50);
 	this._scoreLabel.setText(this._scoreManager.getScore());
 	this.appendChild(this._scoreLabel);
+	
+	/**
+	 * Label that display current time & score multiplier
+	 */
+	this._timeLabel = new lime.Label().setFontFamily("Arial").setFontSize(18).setFontColor("#000000");
+	this._timeLabel.setPosition(this._director.getSize().width - 100, 80);
+	this.appendChild(this._timeLabel);
+	this.updateTimeLabel();
 	
 	/*
 	 * Add borders
@@ -148,6 +156,11 @@ YGScene.prototype.mainLoop = function( dt )
 	{
 		this._scoreLabel.setText(this._scoreManager.getScore());
 	}
+	
+	/*
+	 * Update time label
+	 */
+	this.updateTimeLabel();
 	
 	/*
 	 * Remove all objects that needs to
@@ -351,4 +364,12 @@ YGScene.prototype.createHero = function()
 	hero.setPosition(this._director.getSize().width/2, this._director.getSize().height/2);
 	this.appendChild(hero);
 	return hero;
+};
+
+/**
+ * Update time label with current time & score multiplier
+ */
+YGScene.prototype.updateTimeLabel = function()
+{
+	this._timeLabel.setText("x"+this._scoreManager.getScoreMultiplier()+" - "+this._scoreManager.getGameTime()/1000+"s");
 };

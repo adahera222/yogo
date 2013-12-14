@@ -13,11 +13,23 @@ YGScoreManager = function()
 	this._score = 0;
 	
 	/**
+	 * Current game time (in ms)
+	 * @type {number}
+	 * @private
+	 */
+	this._time = 0;
+	
+	/**
 	 * Current multiplier
 	 * @type {number}
 	 * @private
 	 */
 	this._currentMultiplier = 1;
+	
+	/*
+	 * Time update scheduling
+	 */
+	lime.scheduleManager.scheduleWithDelay(this.updateTime, this, 100);
 };
 
 // -------------------------------------->
@@ -50,6 +62,16 @@ YGScoreManager.prototype.computeScoreForKilledMonsters = function(monsters)
 };
 
 /**
+ * Update current game time
+ */
+YGScoreManager.prototype.updateTime = function()
+{
+	this._time += 100;
+};
+
+// ------------------------------------------->
+
+/**
  * Return the current score
  * 
  * @returns {Number}
@@ -65,4 +87,12 @@ YGScoreManager.prototype.getScore = function()
 YGScoreManager.prototype.getScoreMultiplier = function()
 {
 	return this._currentMultiplier;
+};
+
+/**
+ * Return the current game time
+ */
+YGScoreManager.prototype.getGameTime = function()
+{
+	return this._time;
 };
