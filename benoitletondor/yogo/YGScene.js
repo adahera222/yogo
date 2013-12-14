@@ -57,11 +57,6 @@ YGScene = function(director)
 	 * Main loop binding
 	 */
 	lime.scheduleManager.schedule(this.mainLoop, this);
-	
-	/*
-	 * Add keyboard listener
-	 */
-	
 };
 
 goog.inherits(YGScene, lime.Scene);
@@ -231,7 +226,7 @@ YGScene.prototype.addBorders = function()
  */
 YGScene.prototype.createHero = function()
 {
-	var hero = new YGHero(this);
+	var hero = new YGHero(this, this._director);
 	hero.setPosition(this._director.getSize().width/2, this._director.getSize().height/2);
 	this.appendChild(hero);
 	return hero;
