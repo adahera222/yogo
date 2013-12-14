@@ -168,7 +168,7 @@ YGScene.prototype.mainLoop = function( dt )
 	var contactResults = YGContactsWatcher.onContacts(this._world.GetContactList());
 	if( contactResults.isHeroKilled() )
 	{
-		//TODO
+		window.location.href = "gameover.html";
 	}
 	
 	/*
