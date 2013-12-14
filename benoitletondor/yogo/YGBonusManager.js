@@ -103,7 +103,7 @@ YGBonusManager.prototype.removeSpeedBonus = function()
 YGBonusManager.prototype.addInvertedBonus = function()
 {
 	lime.scheduleManager.unschedule(this.removeInvertedBonus, this);
-	lime.scheduleManager.scheduleWithDelay(this.removeInvertedBonus, this, 2000, 1);
+	lime.scheduleManager.scheduleWithDelay(this.removeInvertedBonus, this, 5000, 1);
 	
 	this._hero.setInverted(true);
 };

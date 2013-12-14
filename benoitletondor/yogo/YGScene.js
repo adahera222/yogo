@@ -84,8 +84,8 @@ YGScene = function(director)
 	 * @type {lime.Label}
 	 * @private
 	 */
-	this._scoreLabel = new lime.Label().setFontFamily("Arial").setFontSize(20).setFontColor("#000000");
-	this._scoreLabel.setPosition(this._director.getSize().width - 100, 50);
+	this._scoreLabel = new lime.Label().setFontFamily("Arial").setFontSize(18).setFontColor("#FFFFFF");
+	this._scoreLabel.setPosition(this._director.getSize().width - 60, 40);
 	this._scoreLabel.setText(this._scoreManager.getScore());
 	this.appendChild(this._scoreLabel);
 	
@@ -94,8 +94,8 @@ YGScene = function(director)
 	 * @type {lime.Label}
 	 * @private
 	 */
-	this._timeLabel = new lime.Label().setFontFamily("Arial").setFontSize(18).setFontColor("#000000");
-	this._timeLabel.setPosition(this._director.getSize().width - 100, 80);
+	this._timeLabel = new lime.Label().setFontFamily("Arial").setFontSize(16).setFontColor("#FFFFFF");
+	this._timeLabel.setPosition(this._director.getSize().width - 60, 60);
 	this.appendChild(this._timeLabel);
 	this.updateTimeLabel();
 	

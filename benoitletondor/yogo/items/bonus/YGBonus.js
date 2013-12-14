@@ -14,8 +14,8 @@ YGBonus = function()
 {
 	goog.base(this);
 	
-	this.setSize(10, 10);
-	this.setFill("#FFFF00");
+	this.setSize(20, 19);
+	this.setFill("assets/bonus.png");
 	
 	/**
      * The physic body of the object
