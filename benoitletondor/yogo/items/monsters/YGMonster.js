@@ -47,7 +47,7 @@ YGMonster.prototype.getShape = function()
    	shapeDef.friction = 0;
    	shapeDef.extents.Set(this.getSize().width / 2, this.getSize().height / 2);
    	shapeDef.categoryBits = 0x0008;
-   	shapeDef.maskBits = ~0x0008;
+   	shapeDef.maskBits = ~0x0008; // Touch everything except other monsters
    	
    	return shapeDef;
 };

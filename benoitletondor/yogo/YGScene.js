@@ -212,7 +212,24 @@ YGScene.prototype.unsubscribeObjectToPhysic = function( object )
 YGScene.prototype.addMonster = function()
 {
 	var monster = new YGZombieMonster();
-	monster.setPosition(30, 30);
+	
+	var x = 0;
+	var y = Math.random() * this._director.getSize().height;
+	if( y <= 50 || y > this._director.getSize().height - 50 )
+	{
+		x = Math.random() * this._director.getSize().width;
+	}
+	else
+	{
+		x = Math.random()* 50;
+		
+		if( Math.random() > 0.5 )
+		{
+			x+= this._director.getSize().width - 50; 
+		}
+	}
+	
+	monster.setPosition(x, y);
 	this.appendChild(monster);
 };
 

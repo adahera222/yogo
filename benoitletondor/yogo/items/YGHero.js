@@ -3,8 +3,8 @@ goog.provide('YGHero');
 goog.require('lime.Sprite');
 goog.require('box2d.BoxDef');
 goog.require('goog.math.Coordinate');
-goog.require('box2d.Vec2');
 goog.require('YGBullet');
+goog.require('YGMath');
 
 /**
  * Our hero
@@ -106,22 +106,15 @@ YGHero.prototype.setForce = function(x, y)
 	force.y = y;
 };
 
+/**
+ * Fire a bullet if needed
+ */
 YGHero.prototype.fire = function()
 {
 	if( this._shouldFire )
 	{
-		var bulletForce = new box2d.Vec2();
-		bulletForce.x = this._mousePosition.x - this.getPosition().x;
-		bulletForce.y = this._mousePosition.y - this.getPosition().y;
-		
-		
-		// http://stackoverflow.com/a/3309658/2508174
-		var angle = Math.atan2(-bulletForce.y, bulletForce.x);
-		if (angle < 0)
-		{
-			angle += 2 * Math.PI;
-		}
-		angle = angle * 180 / Math.PI;
+		var bulletForce = YGMath.getVectorBetweenPosition(this.getPosition(), this._mousePosition);
+		var angle = YGMath.getAngleForVector(bulletForce);
 			   
 		var bullet = new YGBullet(bulletForce);
 		bullet.setPosition(this.getPosition());
