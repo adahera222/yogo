@@ -11,6 +11,8 @@ goog.require('YGPhysicObject');
 goog.require('YGContactsWatcher');
 goog.require('YGImplements');
 goog.require('YGZombieMonster');
+goog.require('YGMonster');
+goog.require('YGMath');
 
 YGScene = function(director)
 {
@@ -51,6 +53,13 @@ YGScene = function(director)
 	 */
 	this._hero = this.createHero();
 	
+	/**
+	 * Array of monsters
+	 * @type {Array}
+	 * @private
+	 */
+	this._monsters = new Array();
+	
 	/*
 	 * Add borders
 	 */
@@ -64,7 +73,7 @@ YGScene = function(director)
 	/*
 	 * Monster appear scheduling
 	 */
-	lime.scheduleManager.scheduleWithDelay(this.addMonster, this, 500);
+	lime.scheduleManager.scheduleWithDelay(this.manageMonsters, this, 500);
 };
 
 goog.inherits(YGScene, lime.Scene);
@@ -95,7 +104,12 @@ YGScene.prototype.mainLoop = function( dt )
 		
 		// Apply forces to the object
 		physicObject.setPosition(physicObject.getBody().GetCenterPosition());
-		//physicObject.setRotation((physicObject.getBody().GetRotation() * 180) / Math.PI );
+		
+		// Apply rotation if it's not the hero (the hero handle his own rotation)
+		if( !(physicObject instanceof YGHero) )
+		{
+			physicObject.setRotation(YGMath.radianToDegree(physicObject.getBody().GetRotation()));
+		}
 	}
 	
 	/*
@@ -145,6 +159,16 @@ YGScene.prototype.removeChild = function( child )
 		this.unsubscribeObjectToPhysic(child);
 	};
 	
+	// Remove monster from array is it's one
+	if( child instanceof YGMonster )
+	{
+		var index = this._monsters.indexOf(child);
+		if (index > -1) 
+		{
+			this._monsters.splice(index, 1);
+		}
+	}
+	
 	// Call super
 	goog.base(this, "removeChild", child);
 };
@@ -167,6 +191,7 @@ YGScene.prototype.subscribeObjectToPhysic = function( object )
 		 */
 		var bodyDef = new box2d.BodyDef();
         bodyDef.position.Set(object.getPosition().x, object.getPosition().y);
+        bodyDef.rotation = YGMath.degreeToRadian(object.getRotation());
         bodyDef.AddShape(object.getShape());
         bodyDef.userData = object; //FIXME circular references is probably a bad idea
     	
@@ -207,12 +232,29 @@ YGScene.prototype.unsubscribeObjectToPhysic = function( object )
 // --------------------------------------------->
 
 /**
- * Add a monster
+ * Manage current monsters & add a new monster
  */
-YGScene.prototype.addMonster = function()
+YGScene.prototype.manageMonsters = function()
 {
+	/*
+	 * Assign all monsters their new force & rotation
+	 */
+	for( var i in this._monsters )
+	{
+		var monster = this._monsters[i];
+		
+		var newForce = YGMath.getVectorBetweenPosition(monster.getPosition(), YGHero.Instance.getPosition(), 10);
+		
+		monster.getBody().SetLinearVelocity(newForce);
+	}
+	
+	
+	/*
+	 * Create a new monster
+	 */
 	var monster = new YGZombieMonster();
 	
+	// Compute position
 	var x = 0;
 	var y = Math.random() * this._director.getSize().height;
 	if( y <= 50 || y > this._director.getSize().height - 50 )
@@ -230,6 +272,9 @@ YGScene.prototype.addMonster = function()
 	}
 	
 	monster.setPosition(x, y);
+	
+	//Add to monsters array & to the scene
+	this._monsters.push(monster);
 	this.appendChild(monster);
 };
 

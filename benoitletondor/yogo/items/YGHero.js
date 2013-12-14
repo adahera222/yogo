@@ -109,11 +109,11 @@ YGHero.prototype.setForce = function(x, y)
 /**
  * Fire a bullet if needed
  */
-YGHero.prototype.fire = function()
+YGHero.prototype.fire = function(dt)
 {
 	if( this._shouldFire )
-	{
-		var bulletForce = YGMath.getVectorBetweenPosition(this.getPosition(), this._mousePosition);
+	{		
+		var bulletForce = YGMath.getVectorBetweenPosition(this.getPosition(), this._mousePosition, 500);
 		var angle = YGMath.getAngleForVector(bulletForce);
 			   
 		var bullet = new YGBullet(bulletForce);
@@ -150,7 +150,11 @@ YGHero.prototype.mouseListener = function()
 	 */
 	goog.events.listen(this._scene, ['mousemove'], function (e) 
 	{
+		// Save mouse position
 		self._mousePosition = e.position;
+		
+		// Set hero rotation
+		self.setRotation(YGMath.getAngleBetweenPosition(self.getPosition(), e.position));
 	});
 };
 
