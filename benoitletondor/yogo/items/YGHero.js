@@ -36,6 +36,48 @@ YGHero = function(scene, director)
     this._mousePosition = new goog.math.Coordinate(0, 0);
     
     /**
+     * Is left arrow pressed
+     * @type {boolean}
+     * @private
+     */
+    this._leftArrowPressed 	= false;
+    
+    /**
+     * Is up arrow pressed
+     * @type {boolean}
+     * @private
+     */
+	this._upArrowPressed	= false;
+	
+	/**
+	 * Is right arrow pressed
+	 * @type {boolean}
+     * @private
+	 */
+	this._rightArrowPressed = false;
+	
+	/**
+	 * Is down arrow pressed
+	 * @type {boolean}
+     * @private
+	 */
+	this._downArrowPressed 	= false;
+	
+	/**
+	 * Current movement x force
+	 * @type {number}
+     * @private
+	 */
+	this.x = 0;
+	
+	/**
+	 * Current movement y force
+	 * @type {boolean}
+     * @private
+	 */
+	this.y = 0;
+    
+    /**
      * Current fire rate
      * @type {number}
      * @private
@@ -106,6 +148,9 @@ YGHero.defaultFireRate = 300;
 
 /**
  * Set force to the hero physic
+ * 
+ * @param {number} x
+ * @param {number} y
  */
 YGHero.prototype.setForce = function(x, y)
 {
@@ -172,68 +217,61 @@ YGHero.prototype.mouseListener = function()
 YGHero.prototype.keyboardListener = function()
 {
 	var self = this;
-    
-    var leftArrowPressed = false;
-	var upArrowPressed = false;
-	var rightArrowPressed = false;
-	var downArrowPressed = false;
-	var x = 0;
-	var y = 0;
 	goog.events.listen(this._scene, [goog.events.EventType.KEYDOWN, goog.events.EventType.KEYUP], function (ev) 
 	{
 		switch(ev.event.keyCode)
 		{
 			case 37 : //left
-				if( !leftArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
+				if( !self.leftArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
 				{
-					x += -self.getSpeed();
-					leftArrowPressed = true;
+					self.x += -self.getSpeed();
+					self.leftArrowPressed = true;
 				}
-				else if( leftArrowPressed && ev.type == goog.events.EventType.KEYUP )
+				else if( self.leftArrowPressed && ev.type == goog.events.EventType.KEYUP )
 				{
-					x += self.getSpeed();
-					leftArrowPressed = false;
+					self.x += self.getSpeed();
+					self.leftArrowPressed = false;
 				}
 				break;
 			case 38 : //up
-				if( !upArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
+				if( !self.upArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
 				{
-					y += -self.getSpeed();
-					upArrowPressed = true;
+					self.y += -self.getSpeed();
+					self.upArrowPressed = true;
 				}
-				else if( upArrowPressed && ev.type == goog.events.EventType.KEYUP )
+				else if( self.upArrowPressed && ev.type == goog.events.EventType.KEYUP )
 				{
-					y += self.getSpeed();
-					upArrowPressed = false;
+					self.y += self.getSpeed();
+					self.upArrowPressed = false;
 				}
 				break;
 			case 39 : //right
-				if( !rightArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
+				if( !self.rightArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
 				{
-					x += self.getSpeed();
-					rightArrowPressed = true;
+					self.x += self.getSpeed();
+					self.rightArrowPressed = true;
 				}
-				else if( rightArrowPressed && ev.type == goog.events.EventType.KEYUP )
+				else if( self.rightArrowPressed && ev.type == goog.events.EventType.KEYUP )
 				{
-					x += -self.getSpeed();
-					rightArrowPressed = false;
+					self.x += -self.getSpeed();
+					self.rightArrowPressed = false;
 				}
 				break;
 			case 40 : //down
-				if( !downArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
+				if( !self.downArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
 				{
-					y += self.getSpeed();
-					downArrowPressed = true;
+					self.y += self.getSpeed();
+					self.downArrowPressed = true;
 				}
-				else if( downArrowPressed && ev.type == goog.events.EventType.KEYUP )
+				else if( self.downArrowPressed && ev.type == goog.events.EventType.KEYUP )
 				{
-					y += -self.getSpeed();
-					downArrowPressed = false;
+					self.y += -self.getSpeed();
+					self.downArrowPressed = false;
 				}
 				break;
 		}
 		
-		self.setForce(x, y);
+		self.setForce(self.x, self.y);
 	});
 };
 
@@ -257,6 +295,16 @@ YGHero.prototype.getSpeed = function()
 YGHero.prototype.setSpeed = function(speed)
 {
 	this._speed = speed;
+	
+	/*
+	 * Reset movement variables
+	 */
+	this.x = 0;
+	this.y = 0;
+	this.upArrowPressed = false;
+	this.downArrowPressed = false;
+	this.rightArrowPressed = false;
+	this.leftArrowPressed = false;
 };
 
 /**

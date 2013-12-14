@@ -3,10 +3,10 @@ goog.provide('YGFireRateBonus');
 goog.require('YGBonus');
 
 /**
- * A bonus that up hero fire rate
+ * A bonus that up hero's fire rate
  * 
  * @constructor
- * @extends {YGFireRateBonus}
+ * @extends {YGBonus}
  */
 YGFireRateBonus = function()
 {

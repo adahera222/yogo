@@ -1,6 +1,7 @@
 goog.provide('YGBonusFactory');
 
 goog.require('YGFireRateBonus');
+goog.require('YGSpeedBonus');
 
 /**
  * Create and return a new bonus with a random type
@@ -17,6 +18,6 @@ YGBonusFactory.createBonus = function()
 	}
 	else
 	{
-		return new YGFireRateBonus();  //TODO
+		return new YGSpeedBonus();
 	}
 };
