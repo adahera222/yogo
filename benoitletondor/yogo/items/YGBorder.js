@@ -18,14 +18,12 @@ YGBorder = function(directorSize, orientation)
 	
 	if( orientation == YGBorder.Orientation.VERTICAL )
 	{
-		this.setSize(10, directorSize.height);
+		this.setSize(YGBorder.Size, directorSize.height);
 	}
 	else
 	{
-		this.setSize(directorSize.width, 10);
+		this.setSize(directorSize.width, YGBorder.Size);
 	}
-	
-    this.setFill("#AAAAAA");
     
     /**
      * The physic body of the object
@@ -52,7 +50,7 @@ YGBorder.Orientation = {
  * Size of the border
  * @expose
  */
-YGBorder.Size = 10;
+YGBorder.Size = 15;
 
 //--------------------------------------------->
 
