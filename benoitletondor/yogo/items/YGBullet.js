@@ -15,7 +15,7 @@ YGBullet = function(force)
 {
 	goog.base(this);
 	
-	this.setSize(8, 4);
+	this.setSize(6, 3);
 	this.setFill("#eebd12");
 	
 	/**

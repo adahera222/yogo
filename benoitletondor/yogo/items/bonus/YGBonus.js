@@ -14,7 +14,7 @@ YGBonus = function()
 {
 	goog.base(this);
 	
-	this.setSize(20, 20);
+	this.setSize(10, 10);
 	this.setFill("#FFFF00");
 	
 	/**

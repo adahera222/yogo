@@ -18,7 +18,7 @@ YGHero = function(scene, director)
 {
 	goog.base(this);
 	
-	this.setSize(50, 50);
+	this.setSize(20, 20);
 	this.setFill("#FF0000");
 	
 	/**
@@ -143,7 +143,7 @@ goog.inherits(YGHero, lime.Sprite);
  * Default speed of the hero
  * @expose
  */
-YGHero.defaultSpeed = 200;
+YGHero.defaultSpeed = 150;
 
 /**
  * Default fire rate
@@ -173,7 +173,7 @@ YGHero.prototype.fire = function(dt)
 {
 	if( this._shouldFire )
 	{		
-		var bulletForce = YGMath.getVectorBetweenPosition(this.getPosition(), this._mousePosition, 500);
+		var bulletForce = YGMath.getVectorBetweenPosition(this.getPosition(), this._mousePosition, 400);
 		var angle = YGMath.getAngleForVector(bulletForce);
 		
 		// Check if we are in inverted mode

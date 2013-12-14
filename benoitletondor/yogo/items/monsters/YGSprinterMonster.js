@@ -13,7 +13,7 @@ YGSprinterMonster = function()
 	goog.base(this);
 	
 	this.setFill("#00FFFF");
-	this.setSize(20, 20);
+	this.setSize(15, 15);
 	
 	/**
 	 * Speed factor
@@ -74,5 +74,5 @@ YGSprinterMonster.prototype.getSpeed = function()
  */
 YGSprinterMonster.prototype.speedUp = function()
 {
-	this._speedFactor += 1;
+	this._speedFactor += 0.5;
 };

@@ -13,7 +13,7 @@ YGZombieMonster = function()
 	goog.base(this);
 	
 	this.setFill("#0000FF");
-	this.setSize(20, 20);
+	this.setSize(10, 10);
 };
 
 goog.inherits(YGZombieMonster, YGMonster);

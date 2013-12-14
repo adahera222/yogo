@@ -13,7 +13,7 @@ YGBossMonster = function()
 	goog.base(this);
 	
 	this.setFill("#006633");
-	this.setSize(25, 25);
+	this.setSize(20, 20);
 };
 
 goog.inherits(YGBossMonster, YGMonster);
@@ -35,7 +35,7 @@ YGBossMonster.prototype.getBaseScore = function()
  */
 YGBossMonster.prototype.getSpeed = function()
 {
-	return 50;
+	return 30;
 };
 
 /**
