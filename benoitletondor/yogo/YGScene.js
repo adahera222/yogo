@@ -1,6 +1,7 @@
 goog.provide('YGScene');
 
 goog.require('lime.Scene');
+goog.require('lime.Label');
 goog.require('box2d.World');
 goog.require('box2d.Vec2');
 goog.require('box2d.BodyDef');
@@ -67,6 +68,16 @@ YGScene = function(director)
 	 * @private
 	 */
 	this._scoreManager = new YGScoreManager();
+	
+	/**
+	 * Label that display the current score
+	 * @type {lime.Label}
+	 * @private
+	 */
+	this._scoreLabel = new lime.Label().setFontFamily("Arial").setFontSize(20).setFontColor("#000000");
+	this._scoreLabel.setPosition(this._director.getSize().width - 50, 50);
+	this._scoreLabel.setText(this._scoreManager.getScore());
+	this.appendChild(this._scoreLabel);
 	
 	/*
 	 * Add borders
@@ -135,7 +146,7 @@ YGScene.prototype.mainLoop = function( dt )
 	var newScore = this._scoreManager.computeScoreForKilledMonsters(contactResults.getDestroyedMonsters());
 	if( newScore )
 	{
-		//TODO
+		this._scoreLabel.setText(this._scoreManager.getScore());
 	}
 	
 	/*
