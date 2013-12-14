@@ -18,8 +18,8 @@ YGHero = function(scene, director)
 {
 	goog.base(this);
 	
-	this.setSize(20, 20);
-	this.setFill("#FF0000");
+	this.setSize(28, 24);
+	this.setFill("assets/bob.png");
 	
 	/**
      * The physic body of the object
