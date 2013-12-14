@@ -14,7 +14,19 @@ YGMonster = function()
 {
 	goog.base(this);
 	
+	/**
+	 * Current number of life of this monster
+	 * @type {number}
+	 * @private
+	 */
 	this._life = this.getNumberOfLife();
+	
+	/**
+     * The physic body of the object
+     * @type {box2d.Body}
+     * @private
+     */
+    this._body = null;
 };
 
 goog.inherits(YGMonster, lime.Sprite);

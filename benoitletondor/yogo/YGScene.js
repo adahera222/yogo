@@ -15,6 +15,8 @@ goog.require('YGMonsterFactory');
 goog.require('YGMonster');
 goog.require('YGMath');
 goog.require('YGScoreManager');
+goog.require('YGBonusFactory');
+goog.require('YGBonusManager');
 
 YGScene = function(director)
 {
@@ -81,11 +83,20 @@ YGScene = function(director)
 	
 	/**
 	 * Label that display current time & score multiplier
+	 * @type {lime.Label}
+	 * @private
 	 */
 	this._timeLabel = new lime.Label().setFontFamily("Arial").setFontSize(18).setFontColor("#000000");
 	this._timeLabel.setPosition(this._director.getSize().width - 100, 80);
 	this.appendChild(this._timeLabel);
 	this.updateTimeLabel();
+	
+	/**
+	 * Bonus manager
+	 * @type {YGBonusManager}
+	 * @private
+	 */
+	this._bonusManager = new YGBonusManager(this._hero);
 	
 	/*
 	 * Add borders
@@ -101,6 +112,11 @@ YGScene = function(director)
 	 * Monster appear scheduling
 	 */
 	lime.scheduleManager.scheduleWithDelay(this.manageMonsters, this, 500);
+	
+	/*
+	 * Bonus appear scheduling
+	 */
+	lime.scheduleManager.scheduleWithDelay(this.addBonus, this, 10000);
 };
 
 goog.inherits(YGScene, lime.Scene);
@@ -161,6 +177,11 @@ YGScene.prototype.mainLoop = function( dt )
 	 * Update time label
 	 */
 	this.updateTimeLabel();
+	
+	/*
+	 * Provide bonuses
+	 */
+	this._bonusManager.onBonuses(contactResults.getUnlockedBonuses());
 	
 	/*
 	 * Remove all objects that needs to
@@ -282,6 +303,20 @@ YGScene.prototype.unsubscribeObjectToPhysic = function( object )
 // --------------------------------------------->
 
 /**
+ * Add a bonus
+ */
+YGScene.prototype.addBonus = function()
+{
+	var bonus = YGBonusFactory.createBonus();
+	var x = Math.random() * this._director.getSize().width;
+	var y = Math.random() * this._director.getSize().height;
+	
+	var position = YGMath.getInScenePosition(x, y, bonus, this._director, YGBorder.Size);
+	bonus.setPosition(position);
+	this.appendChild(bonus);
+};
+
+/**
  * Manage current monsters & add a new monster
  */
 YGScene.prototype.manageMonsters = function()
@@ -320,12 +355,8 @@ YGScene.prototype.manageMonsters = function()
 		}
 	}
 	
-	x = Math.max(YGBorder.Size, x);
-	y = Math.max(YGBorder.Size, y);
-	x = Math.min(this._director.getSize().width-YGBorder.Size, x);
-	y = Math.min(this._director.getSize().height-YGBorder.Size, y);
-	
-	monster.setPosition(x, y);
+	var position = YGMath.getInScenePosition(x, y, monster, this._director, YGBorder.Size);
+	monster.setPosition(position);
 	
 	//Add to monsters array & to the scene
 	this._monsters.push(monster);

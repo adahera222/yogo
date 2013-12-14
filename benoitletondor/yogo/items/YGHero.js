@@ -36,6 +36,20 @@ YGHero = function(scene, director)
     this._mousePosition = new goog.math.Coordinate(0, 0);
     
     /**
+     * Current fire rate
+     * @type {number}
+     * @private
+     */
+    this._fireRate = YGHero.defaultFireRate;
+    
+    /**
+     * Current speed
+     * @type {number}
+     * @private 
+     */
+    this._speed = YGHero.defaultSpeed;
+    
+    /**
      * Should we fire bullet ?
      * @type {boolean}
      * @private
@@ -69,7 +83,7 @@ YGHero = function(scene, director)
 	/*
 	 * Fire scheduling
 	 */
-	lime.scheduleManager.scheduleWithDelay(this.fire, this, 300);
+	lime.scheduleManager.scheduleWithDelay(this.fire, this, this.getFireRate());
 };
 
 goog.inherits(YGHero, lime.Sprite);
@@ -77,10 +91,16 @@ goog.inherits(YGHero, lime.Sprite);
 // ----------------------------------------->
 
 /**
- * Force that move the hero
- * @private
+ * Default speed of the hero
+ * @expose
  */
-YGHero._force = 200;
+YGHero.defaultSpeed = 200;
+
+/**
+ * Default fire rate
+ * @expose
+ */
+YGHero.defaultFireRate = 300;
 
 //----------------------------------------->
 
@@ -166,48 +186,48 @@ YGHero.prototype.keyboardListener = function()
 			case 37 : //left
 				if( !leftArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
 				{
-					x += -YGHero._force;
+					x += -self.getSpeed();
 					leftArrowPressed = true;
 				}
 				else if( leftArrowPressed && ev.type == goog.events.EventType.KEYUP )
 				{
-					x += YGHero._force;
+					x += self.getSpeed();
 					leftArrowPressed = false;
 				}
 				break;
 			case 38 : //up
 				if( !upArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
 				{
-					y += -YGHero._force;
+					y += -self.getSpeed();
 					upArrowPressed = true;
 				}
 				else if( upArrowPressed && ev.type == goog.events.EventType.KEYUP )
 				{
-					y += YGHero._force;
+					y += self.getSpeed();
 					upArrowPressed = false;
 				}
 				break;
 			case 39 : //right
 				if( !rightArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
 				{
-					x += YGHero._force;
+					x += self.getSpeed();
 					rightArrowPressed = true;
 				}
 				else if( rightArrowPressed && ev.type == goog.events.EventType.KEYUP )
 				{
-					x += -YGHero._force;
+					x += -self.getSpeed();
 					rightArrowPressed = false;
 				}
 				break;
 			case 40 : //down
 				if( !downArrowPressed && ev.type == goog.events.EventType.KEYDOWN )
 				{
-					y += YGHero._force;
+					y += self.getSpeed();
 					downArrowPressed = true;
 				}
 				else if( downArrowPressed && ev.type == goog.events.EventType.KEYUP )
 				{
-					y += -YGHero._force;
+					y += -self.getSpeed();
 					downArrowPressed = false;
 				}
 				break;
@@ -215,6 +235,51 @@ YGHero.prototype.keyboardListener = function()
 		
 		self.setForce(x, y);
 	});
+};
+
+//------------------------------------------>
+
+/**
+ * Get the current speed of the hero
+ * 
+ * @returns {number}
+ */
+YGHero.prototype.getSpeed = function()
+{
+	return this._speed;
+};
+
+/**
+ * Set the current speed of the hero (higher is quicker)
+ * 
+ * @param {number} speed
+ */
+YGHero.prototype.setSpeed = function(speed)
+{
+	this._speed = speed;
+};
+
+/**
+ * Get the current fire rate
+ * 
+ * @returns {number}
+ */
+YGHero.prototype.getFireRate = function()
+{
+	return this._fireRate;
+};
+
+/**
+ * Set the current fire rate of the hero (lower is quicker)
+ * 
+ * @param {number} firerate
+ */
+YGHero.prototype.setFireRate = function(firerate)
+{
+	this._fireRate = firerate;
+	
+	lime.scheduleManager.unschedule(this.fire, this);
+	lime.scheduleManager.scheduleWithDelay(this.fire, this, this.getFireRate());
 };
 
 //------------------------------------------>

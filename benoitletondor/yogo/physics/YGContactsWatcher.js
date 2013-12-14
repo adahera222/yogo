@@ -75,13 +75,33 @@ YGContactsWatcher.onContacts = function(contactIterator)
     	/*
     	 * Hero
     	 */
-    	if( (object1 instanceof YGHero) && (object2 instanceof YGMonster) )
+    	if( object1 instanceof YGHero )
     	{
-    		results.setHeroKilled(true);
+    		// If hero hit monster = die
+    		if( object2 instanceof YGMonster )
+    		{
+    			results.setHeroKilled(true);
+    		}
+    		// If hero hit bonus = he gains it
+    		else if( object2 instanceof YGBonus )
+    		{
+    			results.addUnlockedBonus(object2);
+    			results.addObjectToRemove(object2);
+    		}
     	}
-    	else if( (object1 instanceof YGMonster) && (object2 instanceof YGHero) )
+    	else if( object2 instanceof YGHero )
     	{
-    		results.setHeroKilled(true);
+    		// If hero hit monster = die
+    		if( object1 instanceof YGMonster )
+    		{
+    			results.setHeroKilled(true);
+    		}
+    		// If hero hit bonus = he gains it
+    		else if( object1 instanceof YGBonus )
+    		{
+    			results.addUnlockedBonus(object1);
+    			results.addObjectToRemove(object1);
+    		}
     	}
     }
     

@@ -1,6 +1,27 @@
 goog.provide('YGMath');
 
 goog.require('box2d.Vec2');
+goog.require('goog.math.Coordinate');
+
+/**
+ * Return a position that is inside scene (and inside borders)
+ * 
+ * @param {number} x
+ * @param {number} y
+ * @param {lime.Sprite} sprite
+ * @param {lime.Director} director
+ * @param {number} borderSize
+ * @returns {goog.math.Coordinate}
+ */
+YGMath.getInScenePosition = function(x, y, sprite, director, borderSize)
+{
+	x = Math.max(borderSize + sprite.getSize().width, x);
+	y = Math.max(borderSize + sprite.getSize().height, y);
+	x = Math.min(director.getSize().width-borderSize-sprite.getSize().width, x);
+	y = Math.min(director.getSize().height-borderSize-sprite.getSize().height, y);
+	
+	return new goog.math.Coordinate(x, y);
+};
 
 /**
  * Return the vector between positions

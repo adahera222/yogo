@@ -17,17 +17,24 @@ YGContactsResult = function()
 	
 	/**
 	 * Array that contains object to remove
-	 * @type Array
+	 * @type {Array}
 	 * @private
 	 */
 	this._objectToRemove = new Array();
 	
 	/**
 	 * Array that contains object to remove
-	 * @type Array
+	 * @type {Array}
 	 * @private
 	 */
 	this._monstersDestroyed = new Array();
+	
+	/**
+	 * Array that contains bonus to unlock
+	 * @type {Array}
+	 * @private
+	 */
+	this._bonusUnlocked = new Array();
 };
 
 // ------------------------------------->
@@ -91,4 +98,25 @@ YGContactsResult.prototype.setHeroKilled = function(killed)
 YGContactsResult.prototype.isHeroKilled = function()
 {
 	return this._heroKilled;
+};
+
+/**
+ * Add a bonus that just get unlocked
+ * @param {YGBonus} bonus
+ */
+YGContactsResult.prototype.addUnlockedBonus = function(bonus)
+{
+	if( this._bonusUnlocked.indexOf(bonus) < 0 )
+	{
+		this._bonusUnlocked.push(bonus);
+	}
+};
+
+/**
+ * Return all bonuses unlocked
+ * @returns {Array}
+ */
+YGContactsResult.prototype.getUnlockedBonuses = function()
+{
+	return this._bonusUnlocked;
 };
