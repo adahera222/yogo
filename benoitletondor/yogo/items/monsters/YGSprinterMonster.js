@@ -12,8 +12,8 @@ YGSprinterMonster = function()
 {
 	goog.base(this);
 	
-	this.setFill("#00FFFF");
-	this.setSize(15, 15);
+	this.setFill("assets/sprinter.png");
+	this.setSize(23, 24);
 	
 	/**
 	 * Speed factor

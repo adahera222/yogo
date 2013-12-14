@@ -12,8 +12,8 @@ YGZombieMonster = function()
 {
 	goog.base(this);
 	
-	this.setFill("#0000FF");
-	this.setSize(10, 10);
+	this.setFill("assets/zombie.png");
+	this.setSize(20, 18);
 };
 
 goog.inherits(YGZombieMonster, YGMonster);

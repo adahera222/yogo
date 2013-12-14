@@ -12,8 +12,8 @@ YGBossMonster = function()
 {
 	goog.base(this);
 	
-	this.setFill("#006633");
-	this.setSize(20, 20);
+	this.setFill("assets/boss.png");
+	this.setSize(35, 36);
 };
 
 goog.inherits(YGBossMonster, YGMonster);

@@ -16,10 +16,10 @@ yogo.start = function()
 
 	// Create scene
 	_scene = new YGScene(director);
+	//_scene.setRenderer(lime.Renderer.CANVAS);
 	
 	director.replaceScene(_scene);
-}
-
+};
 
 //this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
 goog.exportSymbol('yogo.start', yogo.start);
