@@ -37,3 +37,12 @@ YGZombieMonster.prototype.getSpeed = function()
 {
 	return 10;
 };
+
+/**
+ * @inheritDoc
+ * @override
+ */
+YGZombieMonster.prototype.getNumberOfLife = function()
+{
+	return 1;
+};

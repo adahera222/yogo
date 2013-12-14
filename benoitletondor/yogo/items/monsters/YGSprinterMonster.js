@@ -55,6 +55,15 @@ YGSprinterMonster.prototype.getBaseScore = function()
  * @inheritDoc
  * @override
  */
+YGSprinterMonster.prototype.getNumberOfLife = function()
+{
+	return 1;
+};
+
+/**
+ * @inheritDoc
+ * @override
+ */
 YGSprinterMonster.prototype.getSpeed = function()
 {
 	return 10 * this._speedFactor;

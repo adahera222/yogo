@@ -42,9 +42,13 @@ YGContactsWatcher.onContacts = function(contactIterator)
     		}
     		else if( object2 instanceof YGMonster )
     		{
-    			results.addDestroyedMonster(object2);
+    			// If the monster should die, destroy it
+    			if( object2.shot() )
+    			{
+    				results.addDestroyedMonster(object2);
+    				results.addObjectToRemove(object2);
+    			}
     			
-    			results.addObjectToRemove(object2);
     			results.addObjectToRemove(object1);
     		}
     	}
@@ -57,10 +61,14 @@ YGContactsWatcher.onContacts = function(contactIterator)
     		}
     		else if( object1 instanceof YGMonster )
     		{
-    			results.addDestroyedMonster(object1);
+    			// If the monster should die, destroy it
+    			if( object1.shot() )
+    			{
+    				results.addDestroyedMonster(object1);
+    				results.addObjectToRemove(object1);
+    			}
     			
     			results.addObjectToRemove(object2);
-    			results.addObjectToRemove(object1);
     		}
     	}
     	

@@ -13,6 +13,8 @@ goog.require('box2d.BoxDef');
 YGMonster = function()
 {
 	goog.base(this);
+	
+	this._life = this.getNumberOfLife();
 };
 
 goog.inherits(YGMonster, lime.Sprite);
@@ -42,12 +44,42 @@ YGMonster.prototype.getBaseScore = function()
 };
 
 /**
+ * Return the number of life of the monster
+ * Should be overrided by child
+ * 
+ * @returns {number}
+ */
+YGMonster.prototype.getNumberOfLife = function()
+{
+	return null;
+};
+
+/**
  * Called before destruction of this monster to clean up variables
  * Can be overrided by child
  */
 YGMonster.prototype.onDestroy = function()
 {
 	
+};
+
+//----------------------------------------->
+
+/**
+ * Called when the monster receive a shot
+ * 
+ * @returns {boolean} true if the monster should die, false otherwise
+ */
+YGMonster.prototype.shot = function()
+{
+	this._life--;
+	
+	if( this._life <= 0 )
+	{
+		return true;
+	}
+	
+	return false;
 };
 
 //----------------------------------------->

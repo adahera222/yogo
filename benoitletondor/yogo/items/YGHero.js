@@ -80,7 +80,7 @@ goog.inherits(YGHero, lime.Sprite);
  * Force that move the hero
  * @private
  */
-YGHero._force = 250;
+YGHero._force = 200;
 
 //----------------------------------------->
 
