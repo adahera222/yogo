@@ -2,6 +2,53 @@
 <html lang="en">
 <head>
 	<title>Not alone in the dark</title>
+	<script>
+		function read(key)
+		{
+			if( isLocalStorageAvailable() )
+			{
+				return localStorage.getItem(key);
+			}
+			
+			var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+			result && (result = JSON.parse(result[1]));
+			return result;
+		};
+	
+		function isLocalStorageAvailable()
+		{
+			try 
+			{
+				return 'localStorage' in window && window['localStorage'] !== null;
+			} 
+			catch (e) 
+			{
+				return false;
+			}
+		};
+		
+		document.addEventListener('DOMContentLoaded', function()
+		{
+			var score = read("score");
+			var time = read("time");
+			var elem = document.getElementById("score");
+			var timeElem = document.getElementById("time");
+			
+			if( score )
+			{
+				elem.innerHTML = score;
+				
+				if( time )
+				{
+					timeElem.innerHTML = time/1000 + "s";
+				}
+			}
+			else
+			{
+				elem.innerHTML = "Unavailable... Oops :/";
+			}
+		});
+	</script>
 	<style>
 	    body
 	    {
@@ -23,7 +70,7 @@
 	    #play
 		{
 			position: absolute;
-			margin-top: 280px;
+			margin-top: 285px;
 			margin-left:260px;
 			width:113px;
 			height:56px;
@@ -61,6 +108,17 @@
 			margin-left:210px;
 			margin-top:200px;
 		}
+		
+		#time
+		{
+			position: absolute;
+			color: #de8a0e;
+			font-size: 16px;
+			width: 200px;
+			text-align:center;
+			margin-left:210px;
+			margin-top:230px;
+		}
 	    
 	    #footer
 		{
@@ -79,7 +137,8 @@
 
 <body>
 	<div id="content">
-		<p id="score">2000</p>
+		<p id="score"></p>
+		<p id="time"></p>
 		
 		<a id="play" href="yogo.html"><img src="assets/play-again.png" alt="Play" /></a>
 		

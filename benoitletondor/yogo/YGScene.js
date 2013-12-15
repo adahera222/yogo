@@ -17,6 +17,7 @@ goog.require('YGMath');
 goog.require('YGScoreManager');
 goog.require('YGBonusFactory');
 goog.require('YGBonusManager');
+goog.require('YGStorage');
 
 YGScene = function(director)
 {
@@ -162,6 +163,8 @@ YGScene.prototype.mainLoop = function( dt )
 	var contactResults = YGContactsWatcher.onContacts(this._world.GetContactList());
 	if( contactResults.isHeroKilled() )
 	{
+		YGStorage.store("score",  this._scoreManager.getScore());
+		YGStorage.store("time", this._scoreManager.getGameTime());
 		window.location.href = "gameover.html";
 	}
 	
