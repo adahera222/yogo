@@ -17,7 +17,16 @@ YGSound = function(filePath)
 	 * @type {Boolean}
 	 * @private
 	 */
-	this._newAPI = goog.isDefAndNotNull(new lime.audio.AudioContext()["createGain"]);
+	this._newAPI = false;
+	
+	try
+	{
+		this._newAPI = goog.isDefAndNotNull(new lime.audio.AudioContext()["createGain"]);
+	}
+	catch(e)
+	{
+		this._newAPI = false;
+	}
 	
 	goog.base(this, filePath);
 };
