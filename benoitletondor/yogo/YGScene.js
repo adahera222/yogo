@@ -18,6 +18,7 @@ goog.require('YGScoreManager');
 goog.require('YGBonusFactory');
 goog.require('YGBonusManager');
 goog.require('YGStorage');
+goog.require('YGSound');
 
 /**
  * Main scene of the game
@@ -132,6 +133,11 @@ YGScene = function(director)
 	 * Bonus appear scheduling
 	 */
 	lime.scheduleManager.scheduleWithDelay(this.addBonus, this, 10000);
+	
+	/*
+	 * Start game sound
+	 */
+	new YGSound("assets/play.mp3").play(true);
 };
 
 goog.inherits(YGScene, lime.Scene);
