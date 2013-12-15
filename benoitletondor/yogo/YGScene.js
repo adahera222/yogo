@@ -437,5 +437,12 @@ YGScene.prototype.createHero = function()
  */
 YGScene.prototype.updateTimeLabel = function()
 {
-	this._timeLabel.innerHTML = "x"+this._scoreManager.getScoreMultiplier()+" - "+this._scoreManager.getGameTime()/1000+"s";
+	// Format time to add .0 if number is integer
+	var time = this._scoreManager.getGameTime()/1000;
+	if( time % 1 == 0 )
+	{
+		time = time+".0";
+	}
+	
+	this._timeLabel.innerHTML = "x"+this._scoreManager.getScoreMultiplier()+" - "+time+"s";
 };
