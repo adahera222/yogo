@@ -2,23 +2,52 @@
 
 <html>
 <head>
-	<title>yogo</title>
+	<title>Not alone in the dark</title>
 	<script type="text/javascript" src="../closure/closure/goog/base.js"></script>
 	<script type="text/javascript" src="yogo.js"></script>
 	
 	<style>
-	.lime-scene
-	{
-		background:url('assets/background.jpg') no-repeat;
-	}
-	
-	body
-	{
-		background:black;
-	}
+		.lime-scene
+		{
+			background:url('assets/background.jpg') no-repeat;
+		}
+		
+		body
+		{
+			background:black;
+			font-family: arial;
+		}
+		
+		#game
+		{
+			width: 640px;
+			height : 480px;
+			margin: auto;
+		}
+		
+		h1
+		{
+			text-align : center;
+		}
+		
+		#footer
+		{
+			color: white;
+			width: 640px;
+			margin: auto;
+		}
 	</style>
 </head>
 
 <body onload="yogo.start()"></body>
-
+	<div id="header">
+		<h1><img src="assets/header.png" alt="Not alone in the dark" /></h1>
+	</div>
+	<div id="game">
+	
+	</div>
+	<div id="footer">
+		<p id="score">Score : <span id="currentScore">0</span></p>
+		<p id="time">Multiplier : <span id="currentMultiplier"></span></p>
+	</div>
 </html>

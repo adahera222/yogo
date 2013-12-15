@@ -11,8 +11,8 @@ goog.require('YGScene');
 yogo.start = function()
 {
 	// Create director
-	var director = new lime.Director(document.body, 640, 480);
-	director.setDisplayFPS(true);
+	var director = new lime.Director(document.getElementById("game"), 640, 480);
+	director.setDisplayFPS(false);
 
 	// Create scene
 	_scene = new YGScene(director);

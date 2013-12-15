@@ -81,23 +81,17 @@ YGScene = function(director)
 
 	/**
 	 * Label that display the current score
-	 * @type {lime.Label}
+	 * @type {DOMElement}
 	 * @private
 	 */
-	this._scoreLabel = new lime.Label().setFontFamily("Arial").setFontSize(18).setFontColor("#FFFFFF");
-	this._scoreLabel.setPosition(this._director.getSize().width - 60, 40);
-	this._scoreLabel.setText(this._scoreManager.getScore());
-	this.appendChild(this._scoreLabel);
+	this._scoreLabel = document.getElementById("currentScore");
 	
 	/**
 	 * Label that display current time & score multiplier
-	 * @type {lime.Label}
+	 * @type {DOMElement}
 	 * @private
 	 */
-	this._timeLabel = new lime.Label().setFontFamily("Arial").setFontSize(16).setFontColor("#FFFFFF");
-	this._timeLabel.setPosition(this._director.getSize().width - 60, 60);
-	this.appendChild(this._timeLabel);
-	this.updateTimeLabel();
+	this._timeLabel = document.getElementById("currentMultiplier");
 	
 	/**
 	 * Bonus manager
@@ -177,7 +171,7 @@ YGScene.prototype.mainLoop = function( dt )
 	var newScore = this._scoreManager.computeScoreForKilledMonsters(contactResults.getDestroyedMonsters());
 	if( newScore )
 	{
-		this._scoreLabel.setText(this._scoreManager.getScore());
+		this._scoreLabel.innerHTML = this._scoreManager.getScore();
 	}
 	
 	/*
@@ -427,5 +421,5 @@ YGScene.prototype.createHero = function()
  */
 YGScene.prototype.updateTimeLabel = function()
 {
-	this._timeLabel.setText("x"+this._scoreManager.getScoreMultiplier()+" - "+this._scoreManager.getGameTime()/1000+"s");
+	this._timeLabel.innerHTML = "x"+this._scoreManager.getScoreMultiplier()+" - "+this._scoreManager.getGameTime()/1000+"s";
 };
