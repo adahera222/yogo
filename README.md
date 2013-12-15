@@ -9,7 +9,7 @@
 
 Move with keyboard arrows, fire with mouse click. 
 
-#### Wanna try ? => [Play !](http://notaloneinthedark.benoitletondor.com/)
+#### Wanna try ? => [Play !](http://benoitletondor.com/notaloneinthedark)
 
 
 

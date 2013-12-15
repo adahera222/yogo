@@ -1,0 +1,3 @@
+User-Agent: *    
+Disallow: /yogo.html
+Disallow: /gameover.html
