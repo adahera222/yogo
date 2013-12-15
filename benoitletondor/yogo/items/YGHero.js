@@ -2,6 +2,7 @@ goog.provide('YGHero');
 
 goog.require('lime.Sprite');
 goog.require('box2d.BoxDef');
+goog.require('lime.audio.Audio');
 goog.require('goog.math.Coordinate');
 goog.require('YGBullet');
 goog.require('YGMath');
@@ -119,6 +120,13 @@ YGHero = function(scene, director)
      */
     this._scene = scene;
     
+    /**
+     * Default shot sound
+     * @type {lime.audio.Audio}
+     * @private
+     */
+    this._defaultShotSound = new lime.audio.Audio(YGHero.defaultShotSound);
+    
     /*
      * Keyboard listener
      */
@@ -150,6 +158,12 @@ YGHero.defaultSpeed = 150;
  * @expose
  */
 YGHero.defaultFireRate = 300;
+
+/**
+ * Default shot sound path
+ * @expose
+ */
+YGHero.defaultShotSound = "assets/shot.mp3";
 
 //----------------------------------------->
 
@@ -187,6 +201,7 @@ YGHero.prototype.fire = function(dt)
 		bullet.setPosition(this.getPosition());
 		bullet.setRotation(angle);
 		this._scene.appendChild(bullet);
+		this.getShotSound().play();
 	}
 };
 
@@ -298,6 +313,23 @@ YGHero.prototype.keyboardListener = function()
 };
 
 //------------------------------------------>
+
+/**
+ * Get the current shot sound
+ * 
+ * @returns {lime.audio.Audio}
+ */
+YGHero.prototype.getShotSound = function()
+{
+	// Reset sound if already playing
+	if( this._defaultShotSound.isPlaying() )
+	{
+		this._defaultShotSound.stop();
+		this._defaultShotSound.playPosition_ = 0;
+	}
+	
+	return this._defaultShotSound;
+};
 
 /**
  * Get the current speed of the hero
