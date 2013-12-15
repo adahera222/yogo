@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Not alone in the dark</title>
+	<script>
+		function read(key)
+		{
+			if( isLocalStorageAvailable() )
+			{
+				return localStorage.getItem(key);
+			}
+			
+			var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+			result && (result = JSON.parse(result[1]));
+			return result;
+		};
+	
+		function isLocalStorageAvailable()
+		{
+			try 
+			{
+				return 'localStorage' in window && window['localStorage'] !== null;
+			} 
+			catch (e) 
+			{
+				return false;
+			}
+		};
+		
+		document.addEventListener('DOMContentLoaded', function()
+		{
+			var score = read("score");
+			var time = read("time");
+			var elem = document.getElementById("score");
+			var timeElem = document.getElementById("time");
+			
+			if( score )
+			{
+				elem.innerHTML = score;
+				
+				if( time )
+				{
+					timeElem.innerHTML = time/1000 + "s";
+				}
+			}
+			else
+			{
+				elem.innerHTML = "Unavailable... Oops :/";
+			}
+		});
+	</script>
+	<style>
+	    body
+	    {
+	    	background: black;
+	    	position: relative;
+	    	font-family: Arial;
+	    }
+	    
+	    #content
+	    {
+	    	position: relative;
+	    	width: 640px;
+	    	height: 480px;
+	    	margin: 110px auto auto auto;
+	    	background: url('assets/background-over.jpg') no-repeat;
+	    	padding-top: 35px;
+	    }
+	    
+	    #play
+		{
+			position: absolute;
+			margin-top: 285px;
+			margin-left:260px;
+			width:113px;
+			height:56px;
+			border-radius:15px;
+		}
+		
+		#play:hover
+		{
+			box-shadow: 0px 0px 8px #fff; 
+		}
+		
+		#twitter
+		{
+			position:absolute;
+			margin-top:385px;
+			margin-left: 90px;
+		}
+		
+		#github
+		{
+			position: absolute;
+			width: 96px;
+			height : 41px;
+			margin-left: 470px;
+			margin-top:370px;
+		}
+		
+		#score
+		{
+			position: absolute;
+			color: #de8a0e;
+			font-size: 20px;
+			width: 200px;
+			text-align:center;
+			margin-left:210px;
+			margin-top:200px;
+		}
+		
+		#time
+		{
+			position: absolute;
+			color: #de8a0e;
+			font-size: 16px;
+			width: 200px;
+			text-align:center;
+			margin-left:210px;
+			margin-top:230px;
+		}
+	    
+	    #footer
+		{
+			color:#AAAAAA;
+			text-align: center;
+			font-size: 12px;
+		}
+		
+		#footer a
+		{
+			color:#AAAAAA;
+			font-weight:bold;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="content">
+		<p id="score"></p>
+		<p id="time"></p>
+		
+		<a id="play" href="yogo.html"><img src="assets/play-again.png" alt="Play" /></a>
+		
+		<a id="twitter" href="https://twitter.com/BenoitLetondor" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false" data-lang="en">Follow @BenoitLetondor</a>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	
+		<a id="github" target="blank" href="https://github.com/benoitletondor/yogo" title="View sources on github"><img src="assets/github.png" alt="GitHub" /></a>
+	
+		<audio autoplay loop>
+		  <source src="assets/bo.mp3" type="audio/mpeg">
+		  <source src="assets/bo.ogg" type="audio/ogg">
+		</audio>
+	</div>
+	<div id="footer">
+		<p>Benoit Letondor - 2013. Made for <a href="http://ludumdare.com/compo/" title="LudumDare">LudumDare</a>. Sources available on <a href="https://github.com/benoitletondor/yogo" title="Sources on Github">Github</a></p>
+	</div>
+</body>
