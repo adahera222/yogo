@@ -19,6 +19,13 @@ goog.require('YGBonusFactory');
 goog.require('YGBonusManager');
 goog.require('YGStorage');
 
+/**
+ * Main scene of the game
+ * 
+ * @constructor
+ * @param {lime.Director} director
+ * @extends {lime.Scene}
+ */
 YGScene = function(director)
 {
 	goog.base(this);

@@ -2,10 +2,10 @@ goog.provide('YGHero');
 
 goog.require('lime.Sprite');
 goog.require('box2d.BoxDef');
-goog.require('lime.audio.Audio');
 goog.require('goog.math.Coordinate');
 goog.require('YGBullet');
 goog.require('YGMath');
+goog.require('YGSound');
 
 /**
  * Our hero
@@ -122,10 +122,10 @@ YGHero = function(scene, director)
     
     /**
      * Default shot sound
-     * @type {lime.audio.Audio}
+     * @type {YGSound}
      * @private
      */
-    this._defaultShotSound = new lime.audio.Audio(YGHero.defaultShotSound);
+    this._defaultShotSound = new YGSound(YGHero.defaultShotSound);
     
     /*
      * Keyboard listener
@@ -201,6 +201,7 @@ YGHero.prototype.fire = function(dt)
 		bullet.setPosition(this.getPosition());
 		bullet.setRotation(angle);
 		this._scene.appendChild(bullet);
+		
 		this.getShotSound().play();
 	}
 };
@@ -317,7 +318,7 @@ YGHero.prototype.keyboardListener = function()
 /**
  * Get the current shot sound
  * 
- * @returns {lime.audio.Audio}
+ * @returns {YGSound}
  */
 YGHero.prototype.getShotSound = function()
 {
